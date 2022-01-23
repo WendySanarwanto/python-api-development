@@ -70,3 +70,22 @@ async def delete_post(id: int):
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=f"Post with id: '{id}' does not exist.")
     my_posts.pop(index)
     return Response(status_code=status.HTTP_204_NO_CONTENT)
+
+@app.put("/posts/{id}")
+async def update_post(id: int, updated_post: Post):
+    print(f"id: {id} type: {type(id)}")
+    print(f"updated_post: {updated_post} type: {type(update_post)}")
+    # Find index of Post by matched id
+    index = find_post_index(id)
+    print(f"index: {index} type(index): {type(index)}")
+    if index == None:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=f"Post with id: '{id}' does not exist.")
+
+    # Get dictionary of Updated Post so that we can assign the ID into the Updated Post
+    updated_post_dict = updated_post.dict()
+    updated_post_dict['id'] = id
+
+    # Assign the Updated Post to MyPosts array by matched index.
+    my_posts[index] = updated_post_dict
+
+    return { "data": updated_post_dict }
