@@ -37,7 +37,7 @@ Exercise artefact of Freecodecamp's [Python API Development](https://youtu.be/0s
 * Run the API program:
 
   ```bash
-  uvicorn main:app --reload --port 18000 --workers 4
+  uvicorn app.main:app --reload --port 18000 --workers 4
   ```
 
 * Run `curl` command to test the GET posts API:
